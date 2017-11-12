@@ -50,6 +50,7 @@ post
 # might have to add column with player id
 
 cleanify <- function(url){
+  
   webpage <- read_html(url)
 
   sb_table <- html_nodes(webpage, 'table')
@@ -60,18 +61,17 @@ cleanify <- function(url){
   names(sb1) <- c('Week', 'Result', 'Opponent', 'Owner')
   
   sb2 <- sb1[-1, ]
-  
   sb2$Result <- gsub("-", " ", sb2$Result)
-  
   sb2$Opponent <- substr(sb2$Opponent, 1, nchar(sb2$Opponent)-5)
   
   sb3 <- suppressWarnings(separate(sb2, Result, c('Result', 'PF', 'PA'), sep = ' ', remove = TRUE))
-  sb3$PF <- as.numeric(sb3$PF)
-  sb3$PA <- as.numeric(sb3$PA)
+  sb3$PF <- suppressWarnings(as.numeric(sb3$PF))
+  sb3$PA <- suppressWarnings(as.numeric(sb3$PA))
   
   reg <- sb3[1:13, ]
   
   post <- sb3[14:16, ]
   
-  rm(sb, sb1, sb2, sb3)
+  rm(webpage, sb_table, sb, sb1, sb2, sb3)
 }
+
