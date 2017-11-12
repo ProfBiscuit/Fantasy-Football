@@ -11,6 +11,8 @@ packages <- c("rvest", "stringr", "tidyr")
 
 ipak(packages)
 
+#first test url (my sched)
+
 url <- 'http://games.espn.com/ffl/schedule?leagueId=130349&teamId=2'
 
 webpage <- read_html(url)
@@ -45,24 +47,23 @@ post <- sb3[14:16, ]
 post
 
 ############ Others
+#construct list of relevant urls
 
-urls <- rep(0, 10)
+urls <- 1:12
 
-#skip 3 and 9
-
-for (i in 1:12){
+#skip 3 and 9 as they are no longer in the league
+for (i in urls){
   urls[i] <- paste0("http://games.espn.com/ffl/schedule?leagueId=130349&teamId=", i)
 }
 
-# urls <- as.data.frame(url, stringsAsFactors = FALSE)
+urls <- urls[-c(3, 9)]
 
-url_pull <- urls[1]
+url_pull1 <- urls[1]
 
-webpage <- read_html(url_pull)
+webpage <- read_html(url_pull1)
 
 sb_table <- html_nodes(webpage, 'table')
 sb <- html_table(sb_table, fill = TRUE)[[1]]
-# head(sb)
 
 sb1 <- sb[3:36, c(1, 2, 4, 5)]
 sb1[1, 1] <- "Week"
@@ -72,16 +73,11 @@ sb2 <- sb1[-1, ]
 
 sb2$Result <- gsub("-", " ", sb2$Result)
 
-#sb2$Record <- substr(sb2$Opponent, nchar(sb2$Opponent)-5+1, nchar(sb2$Opponent))
-#sb2$Record <- substr(sb2$Record, 2, 4)
-
 sb2$Opponent <- substr(sb2$Opponent, 1, nchar(sb2$Opponent)-5)
 
 sb3 <- separate(sb2, Result, c('Result', 'PF', 'PA'), sep = ' ', remove = TRUE)
 sb3$PF <- as.numeric(sb3$PF)
 sb3$PA <- as.numeric(sb3$PA)
-
-# head(sb3, 13)
 
 reg <- sb3[1:13, ]
 reg
@@ -92,8 +88,6 @@ post
 ################### Draft Above Into a Function ###################
 
 # might have to add column with player id
-reg <-0
-post<-0
 
 cleanify <- function(url){
   
