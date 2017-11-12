@@ -11,8 +11,6 @@ packages <- c("rvest", "stringr", "tidyr")
 
 ipak(packages)
 
-player <- 1:10
-
 url <- 'http://games.espn.com/ffl/schedule?leagueId=130349&teamId=2'
 
 webpage <- read_html(url)
@@ -50,13 +48,13 @@ post
 
 urls <- rep(0, 10)
 
-player <- 1:10
+#skip 3 and 9
 
-for (i in seq_along(player)){
-  urls[[i]] <- paste0("http://games.espn.com/ffl/schedule?leagueId=130349&teamId=", i)
+for (i in 1:12){
+  urls[i] <- paste0("http://games.espn.com/ffl/schedule?leagueId=130349&teamId=", i)
 }
 
-urls <- as.data.frame(url, stringsAsFactors = FALSE)
+# urls <- as.data.frame(url, stringsAsFactors = FALSE)
 
 url_pull <- urls[1]
 
@@ -94,10 +92,12 @@ post
 ################### Draft Above Into a Function ###################
 
 # might have to add column with player id
+reg <-0
+post<-0
 
 cleanify <- function(url){
   
-  webpage <- read_html(substitute(url))
+  webpage <- read_html(url)
 
   sb_table <- html_nodes(webpage, 'table')
   sb <- html_table(sb_table, fill = TRUE)[[1]]
@@ -114,10 +114,10 @@ cleanify <- function(url){
   sb3$PF <- suppressWarnings(as.numeric(sb3$PF))
   sb3$PA <- suppressWarnings(as.numeric(sb3$PA))
   
-  reg <- sb3[1:13, ]
+  reg <<- sb3[1:13, ]
   
-  post <- sb3[14:16, ]
-  
+  post <<- sb3[14:16, ]
+
   rm(webpage, sb_table, sb, sb1, sb2, sb3)
 }
 
