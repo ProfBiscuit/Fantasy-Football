@@ -25,10 +25,16 @@ names(offense) <- offense[1, ]
 offense <- offense[-1,]
 
 kicker <- html_table(sb_table, fill = TRUE)[[3]]
+names(kicker)
+names(kicker) <- kicker[1, ]
+kicker <- kicker[-1,]
 
 dst <- html_table(sb_table, fill = TRUE)[[4]]
+names(dst)
+names(dst) <- dst[1, ]
+dst <- dst[-1,]
 
-# names(offense) == names(dst)
+# names(offense) == names(kicker)
 
 bench <- html_table(sb_table, fill = TRUE)[[5]]
 
