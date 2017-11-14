@@ -28,6 +28,8 @@ kicker <- html_table(sb_table, fill = TRUE)[[3]]
 # names(kicker)
 names(kicker) <- kicker[2, ]
 kicker <- kicker[-c(1, 2),]
+names(kicker)[5]<-""
+names(kicker)[33]<-""
 
 dst <- html_table(sb_table, fill = TRUE)[[4]]
 # names(dst)
@@ -40,7 +42,7 @@ bench <- html_table(sb_table, fill = TRUE)[[5]]
 names(bench) <- bench[2, ]
 bench <- bench[-c(1, 2),]
 
-dunno <- merge(kicker, dst, all=TRUE)
+dunno <- union(kicker, dst)
 
 
 
