@@ -26,8 +26,8 @@ offense <- offense[-1,]
 
 kicker <- html_table(sb_table, fill = TRUE)[[3]]
 names(kicker)
-names(kicker) <- kicker[1, ]
-kicker <- kicker[-1,]
+names(kicker) <- kicker[2, ]
+kicker <- kicker[-c(1, 2),]
 
 dst <- html_table(sb_table, fill = TRUE)[[4]]
 names(dst)
