@@ -20,23 +20,25 @@ sb <- html_table(sb_table, fill = TRUE)[[2]]
 # sb[1,]
 
 offense <- sb[3:10,1:34]
-names(offense)
+# names(offense)
 names(offense) <- offense[1, ]
 offense <- offense[-1,]
 
 kicker <- html_table(sb_table, fill = TRUE)[[3]]
-names(kicker)
+# names(kicker)
 names(kicker) <- kicker[2, ]
 kicker <- kicker[-c(1, 2),]
 
 dst <- html_table(sb_table, fill = TRUE)[[4]]
-names(dst)
-names(dst) <- dst[1, ]
-dst <- dst[-1,]
+# names(dst)
+names(dst) <- dst[2, ]
+dst <- dst[-c(1, 2),]
 
 # names(offense) == names(kicker)
 
 bench <- html_table(sb_table, fill = TRUE)[[5]]
+names(bench) <- bench[2, ]
+bench <- bench[-c(1, 2),]
 
 dunno <- merge(kicker, dst, all=TRUE)
 
