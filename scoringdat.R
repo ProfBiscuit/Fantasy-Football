@@ -1,4 +1,5 @@
 test <- "http://games.espn.com/ffl/boxscore?leagueId=130349&teamId=2&scoringPeriodId=1&seasonId=2017&view=scoringperiod&version=scoring&mode=h2h"
+# teamId, scoringPeriodId, season
 
 # https://rpubs.com/Radcliffe/superbowl
 
